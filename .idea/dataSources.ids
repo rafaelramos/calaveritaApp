@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source source="LOCAL" name="Rails calaveritaApp: development" uuid="46347035-8f28-4a8e-b7b6-9873056454a8">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source source="LOCAL" name="Rails calaveritaApp: test" uuid="bd94b7e8-19e1-438f-b2e1-be75f8d379ea">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source source="LOCAL" name="Rails calaveritaApp: production" uuid="48be99b6-39e7-4f4b-828c-e318ed4fb791">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+</component>

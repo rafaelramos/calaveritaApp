@@ -1,0 +1,97 @@
+<div class="container-fluid" ng-app="calaverita">
+  <!--Calaverita container-->
+  <div class="row image-editor-container" ng-controller="ElementsCtrl as editor">
+    <!--Hide on edit-->
+    <div class="col-md-3 image-editor-offset" ng-class="{ hidden: editable }"></div>
+
+    <!--Canvas container-->
+    <div class="col-md-5 image-editor-canvas-container">
+      <%= image_tag "resources/skull_1.png", class:"img-responsive" %>
+    </div>
+
+    <!--Edit button container-->
+    <div class="col-md-1 image-editor-edit-btn-container text-center">
+      <button class="btn btn-default" ng-click="toggleEdit()">
+        <span class="glyphicon glyphicon-pencil"></span>
+      </button>
+    </div>
+
+    <!--Hide on edit-->
+    <div class="col-md-3 image-editor-offset" ng-class="{ hidden: editable }"></div>
+
+    <!--Editor container-->
+    <div class="col-md-6 image-editor-editor-container" ng-class="{ hidden: !editable }">
+      <div class="row">
+
+        <!--Elements buttons-->
+        <div class="col-md-2">
+          <ul class="list-unstyled list-inline text-center image-editor-element-list-container">
+            <!--Background button-->
+            <li class="image-editor-element-btn-container">
+              <div class="image-editor-element-btn" ng-class="{ selected: selectedElement == 0 }" ng-click="selectElement(0)">
+                <%= image_tag "resources/background_sample.jpg", class:"img-rounded img-responsive" %>
+              </div>
+            </li>
+            <!--Hair button-->
+            <li class="image-editor-element-btn-container">
+              <div class="image-editor-element-btn" ng-class="{ selected: selectedElement == 1 }" ng-click="selectElement(1)">
+                <%= image_tag "resources/haircut_sample.jpg", class:"img-rounded img-responsive" %>
+              </div>
+            </li>
+            <!--Ornaments button-->
+            <li>
+              <div class="image-editor-element-btn" ng-class="{ selected: selectedElement == 2 }" ng-click="selectElement(2)">
+                <%= image_tag "resources/ornament_sample.jpg", class:"img-rounded img-responsive" %>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!--Options container-->
+        <div class="col-md-8">
+          <ul class="list-unstyled list-inline image-editor-options-container text-center" ng-class="{ hidden: selectedElement != 0 }">
+            <li class="image-editor-element-btn" ng-repeat="background in elements.backgrounds">
+              <img ng-src="{{background.src}}" class="img-rounded img-responsive" ng-click="selectItem(false, background.id)">
+            </li>
+          </ul>
+
+          <ul class="list-unstyled list-inline image-editor-options-container text-center" ng-class="{ hidden: selectedElement != 1 }">
+            <li class="image-editor-element-btn" ng-repeat="haircut in elements.haircuts">
+              <img ng-src="{{haircut.src}}" class="img-rounded img-responsive" ng-click="selectItem(true, haircut.id)">
+            </li>
+          </ul>
+
+          <ul class="list-unstyled list-inline image-editor-options-container text-center" ng-class="{ hidden: selectedElement != 2 }">
+            <li class="image-editor-element-btn" ng-repeat="ornament in elements.ornaments">
+              <img ng-src="{{ornament.src}}" class="img-rounded img-responsive" ng-click="selectItem(false, ornament.id)">
+            </li>
+          </ul>
+        </div>
+
+        <!--Color buttons-->
+        <div class="col-md-2">
+          <ul class="list-unstyled list-inline text-right image-editor-color-buttons" ng-class="{ hidden: !showColor }">
+            <li class="image-editor-color-btn-container" ng-repeat="color in elements.colors">
+              <button class="btn btn-default btn-sm">
+                <div class="image-editor-color-btn {{color.name}}"></div>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Share buttons container-->
+  <div class="row">
+    <!--Facebook share-->
+    <div class="col-md-6">
+      <a class="btn btn-primary btn-block" href="#">Post on facebook</a>
+    </div>
+
+    <!--URL share-->
+    <div class="col-md-6">
+      <a class="btn btn-default btn-block" href="#">Save image</a>
+    </div>
+  </div>
+</div>

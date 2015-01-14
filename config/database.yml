@@ -1,0 +1,23 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: calaveritaApp_development
+  pool: 5
+  username: calaveritaApp
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: calaveritaApp_test
+  pool: 5
+  username: calaveritaApp
+  password:
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: calaveritaApp_production
+  pool: 5
+  username: calaveritaApp
+  password:

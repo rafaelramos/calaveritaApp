@@ -1,0 +1,71 @@
+.image-editor-container {
+  background-color: aliceblue;
+}
+
+.image-editor-canvas-container {
+  min-width: 350px;
+  min-height: 400px;
+  background-color: #428bca;
+}
+
+.image-editor-edit-btn-container {
+  min-width: 70px;
+  background-color: #5bc0de;
+}
+
+.image-editor-element-btn-container { margin-bottom: 5px; }
+
+.image-editor-element-btn {
+  cursor: pointer;
+  opacity: 0.5;
+
+  &:hover { opacity: 0.7; }
+  &.selected { opacity: 1; }
+}
+
+.image-editor-color-btn-container { margin-bottom: 5px; }
+
+.image-editor-color-btn {
+  border: gray solid 1px;
+  height: 10px;
+  width: 10px;
+
+  &.black { background-color: #000000; }
+  &.white { background-color: #FFFFFF; }
+  &.purple { background-color: #8601AF; }
+  &.blue { background-color: #0247FE; }
+  &.green { background-color: #66B032; }
+  &.yellow { background-color: #FEFE33; }
+  &.orange { background-color: #FB9902; }
+  &.red { background-color: #FE2712; }
+}
+
+@media all and (min-width: 992px){
+  .image-editor-element-list-container {
+    margin: 0 auto;
+    max-width: 100px;
+  }
+
+  .image-editor-options-container {
+    margin-bottom: 0px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .image-editor-color-buttons {
+    margin: 0 auto;
+    max-width: 42px;
+  }
+}
+
+@media all and (max-width: 991px){
+  .image-editor-canvas-container {
+    margin: 0 auto;
+    max-width: 380px;
+  }
+
+  .image-editor-color-buttons {
+    margin: 0 auto;
+    max-width: 336px;
+  }
+}
