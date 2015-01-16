@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require angular/angular
 //= require bootstrap-sprockets
+//= require createjs-2014.12.12.min.js
 //= require calaverita
 //
 //= require_tree .

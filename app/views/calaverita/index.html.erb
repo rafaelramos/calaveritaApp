@@ -1,12 +1,12 @@
 <div class="container-fluid" ng-app="calaverita">
   <!--Calaverita container-->
-  <div class="row image-editor-container" ng-controller="ElementsCtrl as editor">
+  <div class="row image-editor-container" ng-controller="ElementsCtrl as editor" ng-init="initCanvas()">
     <!--Hide on edit-->
     <div class="col-md-3 image-editor-offset" ng-class="{ hidden: editable }"></div>
 
     <!--Canvas container-->
-    <div class="col-md-5 image-editor-canvas-container">
-      <%= image_tag "resources/skull_1.png", class:"img-responsive" %>
+    <div class="col-md-5 image-editor-canvas-container text-right">
+      <canvas id="image-editor-canvas" width="350" height="400"></canvas>
     </div>
 
     <!--Edit button container-->
@@ -50,20 +50,20 @@
         <!--Options container-->
         <div class="col-md-8">
           <ul class="list-unstyled list-inline image-editor-options-container text-center" ng-class="{ hidden: selectedElement != 0 }">
-            <li class="image-editor-element-btn" ng-repeat="background in elements.backgrounds">
-              <img ng-src="{{background.src}}" class="img-rounded img-responsive" ng-click="selectItem(false, background.id)">
+            <li class="image-editor-element-btn" ng-repeat="background in elements.backgrounds" ng-class="{ selected: myCalaverita.background == background.id }">
+              <img ng-src="{{ 'assets/resources/mini/backgrounds/' + background.src }}" class="img-rounded img-responsive" ng-click="selectBackground(background.id)">
             </li>
           </ul>
 
           <ul class="list-unstyled list-inline image-editor-options-container text-center" ng-class="{ hidden: selectedElement != 1 }">
-            <li class="image-editor-element-btn" ng-repeat="haircut in elements.haircuts">
-              <img ng-src="{{haircut.src}}" class="img-rounded img-responsive" ng-click="selectItem(true, haircut.id)">
+            <li class="image-editor-element-btn" ng-repeat="haircut in elements.haircuts" ng-class="{ selected: myCalaverita.haircut.hairID == haircut.id }">
+              <img ng-src="{{ 'assets/resources/mini/haircuts/' + haircut.src }}" class="img-rounded img-responsive" ng-click="selectHaircut(haircut.id)">
             </li>
           </ul>
 
           <ul class="list-unstyled list-inline image-editor-options-container text-center" ng-class="{ hidden: selectedElement != 2 }">
-            <li class="image-editor-element-btn" ng-repeat="ornament in elements.ornaments">
-              <img ng-src="{{ornament.src}}" class="img-rounded img-responsive" ng-click="selectItem(false, ornament.id)">
+            <li class="image-editor-element-btn" ng-repeat="ornament in elements.ornaments" ng-class="{ selected: selectedOrnament(ornament.id) }">
+              <img ng-src="{{ 'assets/resources/mini/ornaments/' + ornament.src }}" class="img-rounded img-responsive" ng-click="selectOrnament(ornament.id)">
             </li>
           </ul>
         </div>
@@ -72,7 +72,7 @@
         <div class="col-md-2">
           <ul class="list-unstyled list-inline text-right image-editor-color-buttons" ng-class="{ hidden: !showColor }">
             <li class="image-editor-color-btn-container" ng-repeat="color in elements.colors">
-              <button class="btn btn-default btn-sm">
+              <button class="btn btn-default btn-sm" ng-click="selectHairColor(color.id)">
                 <div class="image-editor-color-btn {{color.name}}"></div>
               </button>
             </li>
