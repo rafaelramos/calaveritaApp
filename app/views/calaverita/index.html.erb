@@ -50,7 +50,7 @@
         <!--Options container-->
         <div class="col-md-8">
           <ul class="list-unstyled list-inline image-editor-options-container text-center" ng-class="{ hidden: selectedElement != 0 }">
-            <li class="image-editor-element-btn" ng-repeat="background in elements.backgrounds" ng-class="{ selected: myCalaverita.background == background.id }">
+            <li class="image-editor-element-btn" ng-repeat="background in elements.backgrounds" ng-class="{ selected: myCalaverita.background.backgroundID == background.id }">
               <img ng-src="{{ 'assets/resources/mini/backgrounds/' + background.src }}" class="img-rounded img-responsive" ng-click="selectBackground(background.id)">
             </li>
           </ul>
@@ -72,7 +72,7 @@
         <div class="col-md-2">
           <ul class="list-unstyled list-inline text-right image-editor-color-buttons" ng-class="{ hidden: !showColor }">
             <li class="image-editor-color-btn-container" ng-repeat="color in elements.colors">
-              <button class="btn btn-default btn-sm" ng-click="selectHairColor(color.id)">
+              <button class="btn btn-default btn-sm" ng-click="selectElementColor(color.id)">
                 <div class="image-editor-color-btn {{color.name}}"></div>
               </button>
             </li>
