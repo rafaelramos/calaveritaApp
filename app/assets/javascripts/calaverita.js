@@ -6,15 +6,15 @@ calaverita.factory('Elements', function() {
   var Elements = {};
 
   Elements.colors = [
-    { id: 0, code: { r: 0, g: 0, b: 0, a: 1 }, name: 'none' },
-    { id: 1, code: { r: 0, g: 0, b: 0, a: 0.8 }, name: 'black' },
-    { id: 2, code: { r: 255, g: 255, b: 255, a: 0.8 }, name: 'white' },
-    { id: 3, code: { r: 134, g: 1, b: 175, a: 0.8 }, name: 'purple' },
-    { id: 4, code: { r: 2, g: 71, b: 254, a: 0.8 }, name: 'blue' },
-    { id: 5, code: { r: 102, g: 176, b: 50, a: 0.8 }, name: 'green' },
-    { id: 6, code: { r: 254, g: 254, b: 51, a: 0.8 }, name: 'yellow' },
-    { id: 7, code: { r: 251, g: 153, b: 2, a: 0.8 }, name: 'orange' },
-    { id: 8, code: { r: 254, g: 39, b: 18, a: 0.8 }, name: 'red' }
+    { id: 0, code: { r: 0, g: 0, b: 0, a: 1, d: 0, l: 0 }, name: 'none' },
+    { id: 1, code: { r: 0, g: 0, b: 0, a: 1, d: 1, l: 0 }, name: 'black' },
+    { id: 2, code: { r: 0, g: 0, b: 0, a: 1, d: 0, l: 1 }, name: 'white' },
+    { id: 3, code: { r: 134, g: 1, b: 175, a: 0.8, d: 0, l: 0 }, name: 'purple' },
+    { id: 4, code: { r: 2, g: 71, b: 254, a: 0.8, d: 0, l: 0 }, name: 'blue' },
+    { id: 5, code: { r: 102, g: 176, b: 50, a: 0.8, d: 0, l: 0 }, name: 'green' },
+    { id: 6, code: { r: 254, g: 254, b: 51, a: 0.8, d: 0, l: 0 }, name: 'yellow' },
+    { id: 7, code: { r: 251, g: 153, b: 2, a: 0.8, d: 0, l: 0 }, name: 'orange' },
+    { id: 8, code: { r: 254, g: 39, b: 18, a: 0.8, d: 0, l: 0 }, name: 'red' }
   ];
 
   Elements.backgrounds = [
@@ -266,12 +266,20 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
 
   //Get image with color
   function getImageWithColor(container, src, rgbObject) {
-//    var tint = new createjs.ColorFilter(1, 1, 1, 0.7, rgbObject.r, rgbObject.g, rgbObject.b, 0);
-    var tint = new createjs.ColorFilter(1, 1, 1, 1, 0, 0, 0, 0);
+    var tint = new createjs.ColorFilter(1, 1, 1, 0.5, rgbObject.r, rgbObject.g, rgbObject.b, 0);
     var img = new createjs.Bitmap(src);
+    var matrix = new createjs.ColorMatrix();
+
+    if (rgbObject.d) {
+      matrix.adjustSaturation(-100).adjustBrightness(-75);
+    } else if (rgbObject.l) {
+      matrix.adjustSaturation(-100).adjustBrightness(75);
+    }
+
+    img.filters = [ tint, new createjs.ColorMatrixFilter(matrix) ];
+
 
     img.image.onload = function() {
-      img.filters = [tint];
       img.cache(0, 0, 350, 400);
       container.addChild(img);
 
