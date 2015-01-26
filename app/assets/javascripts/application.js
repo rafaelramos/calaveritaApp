@@ -15,6 +15,7 @@
 //= require angular/angular
 //= require bootstrap-sprockets
 //= require createjs-2014.12.12.min.js
+//= require colpick
 //= require calaverita
 //
 //= require_tree .

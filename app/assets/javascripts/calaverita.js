@@ -5,18 +5,6 @@ var calaverita = angular.module('calaverita', []);
 calaverita.factory('Elements', function() {
   var Elements = {};
 
-  Elements.colors = [
-    { id: 0, code: { r: 0, g: 0, b: 0, a: 1, d: 0, l: 0 }, name: 'none' },
-    { id: 1, code: { r: 0, g: 0, b: 0, a: 1, d: 1, l: 0 }, name: 'black' },
-    { id: 2, code: { r: 0, g: 0, b: 0, a: 1, d: 0, l: 1 }, name: 'white' },
-    { id: 3, code: { r: 134, g: 1, b: 175, a: 0.8, d: 0, l: 0 }, name: 'purple' },
-    { id: 4, code: { r: 2, g: 71, b: 254, a: 0.8, d: 0, l: 0 }, name: 'blue' },
-    { id: 5, code: { r: 102, g: 176, b: 50, a: 0.8, d: 0, l: 0 }, name: 'green' },
-    { id: 6, code: { r: 254, g: 254, b: 51, a: 0.8, d: 0, l: 0 }, name: 'yellow' },
-    { id: 7, code: { r: 251, g: 153, b: 2, a: 0.8, d: 0, l: 0 }, name: 'orange' },
-    { id: 8, code: { r: 254, g: 39, b: 18, a: 0.8, d: 0, l: 0 }, name: 'red' }
-  ];
-
   Elements.backgrounds = [
     { id: 1, src: 'background_1.jpg' },
     { id: 2, src: 'background_2.jpg' },
@@ -110,8 +98,8 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   $scope.selectedElement = 0;
   $scope.showColor = false;
   $scope.myCalaverita = {
-    background: { backgroundID: 1, colorID: 0 },
-    haircut: { hairID: 1, colorID: 1 },
+    background: { backgroundID: 1, color: { h: 0, s: 0, l: 0 } },
+    haircut: { hairID: 1, color: { h: 0, s: 0, l: 0 } },
     ornaments: []
   };
 
@@ -123,12 +111,12 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   //Click element button
   $scope.selectElement = function(numElement) {
     $scope.selectedElement = numElement;
-    $scope.showColor = false;
+    //$scope.showColor = false;
   };
 
   //Click item button
   $scope.selectBackground = function(id) {
-    $scope.showColor = true;
+    //$scope.showColor = true;
     $scope.myCalaverita.background.backgroundID = id;
 
     //Update canvas
@@ -136,7 +124,7 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   };
 
   $scope.selectHaircut = function(id) {
-    $scope.showColor = true;
+    //$scope.showColor = true;
     $scope.myCalaverita.haircut.hairID = id;
 
     //Update canvas
@@ -144,7 +132,7 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   };
 
   $scope.selectOrnament = function(id) {
-    $scope.showColor = false;
+    //$scope.showColor = false;
 
     var ornamentIndex = $.inArray(id, $scope.myCalaverita.ornaments);
     if (ornamentIndex < 0) {
@@ -185,6 +173,8 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
     $scope.stage.addChildAt(new createjs.Container());
     $scope.stage.addChildAt(new createjs.Container());
     $scope.stage.addChildAt(new createjs.Container());
+
+    $('.image-editor-color-btn').colpick();
 
     $scope.updateCanvas();
   };

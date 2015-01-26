@@ -14,13 +14,16 @@
       <button class="btn btn-default" ng-click="toggleEdit()">
         <span class="glyphicon glyphicon-pencil"></span>
       </button>
+      <button class="btn btn-default image-editor-color-btn">
+        <span class="glyphicon glyphicon-adjust"></span>
+      </button>
     </div>
 
     <!--Hide on edit-->
     <div class="col-md-3 image-editor-offset" ng-class="{ hidden: editable }"></div>
 
     <!--Editor container-->
-    <div class="col-md-6 image-editor-editor-container" ng-class="{ hidden: !editable }">
+    <div class="col-md-8 image-editor-editor-container" ng-class="{ hidden: !editable }">
       <div class="row">
 
         <!--Elements buttons-->
@@ -29,19 +32,19 @@
             <!--Background button-->
             <li class="image-editor-element-btn-container">
               <div class="image-editor-element-btn" ng-class="{ selected: selectedElement == 0 }" ng-click="selectElement(0)">
-                <%= image_tag "resources/background_sample.jpg", class:"img-rounded img-responsive" %>
+                <%= image_tag "resources/background_sample.jpg", class: "img-rounded img-responsive" %>
               </div>
             </li>
             <!--Hair button-->
             <li class="image-editor-element-btn-container">
               <div class="image-editor-element-btn" ng-class="{ selected: selectedElement == 1 }" ng-click="selectElement(1)">
-                <%= image_tag "resources/haircut_sample.jpg", class:"img-rounded img-responsive" %>
+                <%= image_tag "resources/haircut_sample.jpg", class: "img-rounded img-responsive" %>
               </div>
             </li>
             <!--Ornaments button-->
             <li>
               <div class="image-editor-element-btn" ng-class="{ selected: selectedElement == 2 }" ng-click="selectElement(2)">
-                <%= image_tag "resources/ornament_sample.jpg", class:"img-rounded img-responsive" %>
+                <%= image_tag "resources/ornament_sample.jpg", class: "img-rounded img-responsive" %>
               </div>
             </li>
           </ul>
@@ -64,17 +67,6 @@
           <ul class="list-unstyled list-inline image-editor-options-container text-center" ng-class="{ hidden: selectedElement != 2 }">
             <li class="image-editor-element-btn" ng-repeat="ornament in elements.ornaments" ng-class="{ selected: selectedOrnament(ornament.id) }">
               <img ng-src="{{ 'assets/resources/mini/ornaments/' + ornament.src }}" class="img-rounded img-responsive" ng-click="selectOrnament(ornament.id)">
-            </li>
-          </ul>
-        </div>
-
-        <!--Color buttons-->
-        <div class="col-md-2">
-          <ul class="list-unstyled list-inline text-right image-editor-color-buttons" ng-class="{ hidden: !showColor }">
-            <li class="image-editor-color-btn-container" ng-repeat="color in elements.colors">
-              <button class="btn btn-default btn-sm" ng-click="selectElementColor(color.id)">
-                <div class="image-editor-color-btn {{color.name}}"></div>
-              </button>
             </li>
           </ul>
         </div>
