@@ -195,7 +195,7 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
           if ($scope.focusedElement == 999) {
             $scope.myCalaverita.haircut.color = color;
           } else {
-            //colorObj = getOrnamentFromArray($scope.focusedElement);
+            updateOrnamentColor($scope.focusedElement, color);
           }
         }
 
@@ -283,6 +283,15 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
     for (var i = 0; i < $scope.myCalaverita.ornaments.length; i++) {
       if ($scope.myCalaverita.ornaments[i].id == id) {
         return $scope.myCalaverita.ornaments[i];
+      }
+    }
+  };
+
+  function updateOrnamentColor(id, color) {
+    for (var i = 0; i < $scope.myCalaverita.ornaments.length; i++) {
+      if ($scope.myCalaverita.ornaments[i].id == id) {
+        $scope.myCalaverita.ornaments[i].color = color;
+        return true;
       }
     }
   };
