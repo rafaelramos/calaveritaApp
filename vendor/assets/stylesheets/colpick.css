@@ -186,7 +186,7 @@ colpick Color Picker / colpick.com
 /*Field label container*/
 .colpick_field_letter {
 	position: absolute;
-	width: 12px;
+	width: 18px; /* MODIFIED */
 	height: 20px;
 	line-height: 20px;
 	padding-left: 4px;
