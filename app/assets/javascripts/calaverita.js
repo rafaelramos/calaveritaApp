@@ -96,10 +96,11 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   $scope.elements = Elements;
   $scope.editable = false;
   $scope.selectedElement = 0;
+  $scope.focusedElement = -1;
   $scope.showColor = false;
   $scope.myCalaverita = {
-    background: { backgroundID: 1, color: { h: 0, s: 0, l: 0 } },
-    haircut: { hairID: 1, color: { h: 0, s: 0, l: 0 } },
+    background: { backgroundID: 1 },
+    haircut: { hairID: 1, color: { h: 180, s: 100, l: 0, r: 128, g: 128, b: 128 } },
     ornaments: []
   };
 
@@ -111,12 +112,10 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   //Click element button
   $scope.selectElement = function(numElement) {
     $scope.selectedElement = numElement;
-    //$scope.showColor = false;
   };
 
   //Click item button
   $scope.selectBackground = function(id) {
-    //$scope.showColor = true;
     $scope.myCalaverita.background.backgroundID = id;
 
     //Update canvas
@@ -124,41 +123,39 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   };
 
   $scope.selectHaircut = function(id) {
-    //$scope.showColor = true;
     $scope.myCalaverita.haircut.hairID = id;
+    $scope.focusedElement = 999; // 999 is Hair because there is no 999 ornaments
 
     //Update canvas
     $scope.updateCanvas();
   };
 
   $scope.selectOrnament = function(id) {
-    //$scope.showColor = false;
-
-    var ornamentIndex = $.inArray(id, $scope.myCalaverita.ornaments);
-    if (ornamentIndex < 0) {
-      $scope.myCalaverita.ornaments.push(id);
-    } else {
-      $scope.myCalaverita.ornaments.splice(ornamentIndex, 1);
+    if (!$scope.selectedOrnament(id)) {
+      $scope.myCalaverita.ornaments.push(
+        {
+          id: id,
+          color: {
+            h: 180, s: 100, l: 0, r: 128, g: 128, b: 128
+          }
+        });
     }
+
+    //Set the focus to that element
+    $scope.focusedElement = id;
 
     //Update canvas
     $scope.updateCanvas();
   };
 
   $scope.selectedOrnament = function(id) {
-    return $.inArray(id, $scope.myCalaverita.ornaments) >= 0;
-  };
-
-  //Click color button
-  $scope.selectElementColor = function(id) {
-    if ($scope.selectedElement == 0) {
-      $scope.myCalaverita.background.colorID = id;
-    } else if ($scope.selectedElement == 1) {
-      $scope.myCalaverita.haircut.colorID = id;
+    for (var i = 0; i < $scope.myCalaverita.ornaments.length; i++) {
+      if ($scope.myCalaverita.ornaments[i].id == id) {
+        return true;
+      }
     }
 
-    //Update canvas
-    $scope.updateCanvas();
+    return false;
   };
 
   //Facebook button
@@ -169,12 +166,23 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   //Init canvas
   $scope.initCanvas = function() {
     $scope.stage = new createjs.Stage("image-editor-canvas");
-    $scope.stage.addChildAt(new createjs.Container());
-    $scope.stage.addChildAt(new createjs.Container());
-    $scope.stage.addChildAt(new createjs.Container());
-    $scope.stage.addChildAt(new createjs.Container());
+    //To ensure layers are created correctly and printed in order
+    $scope.stage.addChildAt(new createjs.Container()); //Background
+    $scope.stage.addChildAt(new createjs.Container()); //Skull
+    $scope.stage.addChildAt(new createjs.Container()); //Hair
+    $scope.stage.addChildAt(new createjs.Container()); //Ornaments
 
-    $('.image-editor-color-btn').colpick();
+    $('.image-editor-color-btn').colpick({
+      submit: 0,
+      color: { h:180, s:50, b:50 },
+      onChange: function(hsb,hex,rgb,el,bySetColor) {
+        setBackgroundColor(hex);
+      },
+      onShow: function() {
+        //Set te color selected in the item selected
+        //$(this).colPickSetColor();
+      }
+    });
 
     $scope.updateCanvas();
   };
@@ -212,10 +220,11 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
 
   //Get the haircut image
   function getHaircut() {
-    if ($scope.myCalaverita.haircut.hairID > 1) {
-      obj = searchInObject($scope.myCalaverita.haircut.hairID, $scope.elements.haircuts);
-      var rgbObject = searchInObject($scope.myCalaverita.haircut.colorID, $scope.elements.colors).code;
-      getImageWithColor($scope.stage.getChildAt(2), 'assets/resources/normal/haircuts/' + obj.src, rgbObject);
+    var hairCutObj = $scope.myCalaverita.haircut;
+
+    if (hairCutObj.hairID > 1) {
+      var obj = searchInObject(hairCutObj.hairID, $scope.elements.haircuts);
+      getImageWithColor($scope.stage.getChildAt(2), 'assets/resources/normal/haircuts/' + obj.src, hairCutObj.color);
     }
   }
 
@@ -224,14 +233,14 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
     var objects = new createjs.Container();
 
     for (var i = 0; i < $scope.myCalaverita.ornaments.length; i++) {
-      obj = searchInObject($scope.myCalaverita.ornaments[i], $scope.elements.ornaments);
+      var obj = searchInObject($scope.myCalaverita.ornaments[i].id, $scope.elements.ornaments);
       getImage(objects, 'assets/resources/normal/ornaments/' + obj.src);
     }
 
     $scope.stage.getChildAt(3).addChild(objects);
   }
 
-  //OBJECT HELPER
+  //HELPERS
 
   //Get the object images
   function searchInObject(id, myObject) {
@@ -240,6 +249,10 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
         return(myObject[i]);
       }
     }
+  }
+
+  function setBackgroundColor(hex) {
+    $('.image-editor-color-selected').css('background-color', '#'+hex);
   }
 
   //IMAGE LOADER
@@ -255,16 +268,12 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   }
 
   //Get image with color
-  function getImageWithColor(container, src, rgbObject) {
-    var tint = new createjs.ColorFilter(1, 1, 1, 0.5, rgbObject.r, rgbObject.g, rgbObject.b, 0);
+  function getImageWithColor(container, src, colorObject) {
+    var tint = new createjs.ColorFilter(1, 1, 1, 1, colorObject.r, colorObject.g, colorObject.b, 0);
     var img = new createjs.Bitmap(src);
     var matrix = new createjs.ColorMatrix();
 
-    if (rgbObject.d) {
-      matrix.adjustSaturation(-100).adjustBrightness(-75);
-    } else if (rgbObject.l) {
-      matrix.adjustSaturation(-100).adjustBrightness(75);
-    }
+    matrix.adjustHue(colorObject.h).adjustSaturation(colorObject.s).adjustBrightness(colorObject.l);
 
     img.filters = [ tint, new createjs.ColorMatrixFilter(matrix) ];
 

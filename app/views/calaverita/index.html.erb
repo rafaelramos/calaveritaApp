@@ -14,8 +14,8 @@
       <button class="btn btn-default" ng-click="toggleEdit()">
         <span class="glyphicon glyphicon-pencil"></span>
       </button>
-      <button class="btn btn-default image-editor-color-btn">
-        <span class="glyphicon glyphicon-adjust"></span>
+      <button class="btn btn-default image-editor-color-btn" ng-class="{ hidden: showColor }">
+        <div class="image-editor-color-selected" style="background-color: hsl(180, 50% , 50%)"></div>
       </button>
     </div>
 
@@ -23,7 +23,7 @@
     <div class="col-md-3 image-editor-offset" ng-class="{ hidden: editable }"></div>
 
     <!--Editor container-->
-    <div class="col-md-8 image-editor-editor-container" ng-class="{ hidden: !editable }">
+    <div class="col-md-6 image-editor-editor-container" ng-class="{ hidden: !editable }">
       <div class="row">
 
         <!--Elements buttons-->
@@ -32,26 +32,26 @@
             <!--Background button-->
             <li class="image-editor-element-btn-container">
               <div class="image-editor-element-btn" ng-class="{ selected: selectedElement == 0 }" ng-click="selectElement(0)">
-                <%= image_tag "resources/background_sample.jpg", class: "img-rounded img-responsive" %>
+                <%= image_tag 'resources/background_sample.jpg', class: 'img-rounded img-responsive' %>
               </div>
             </li>
             <!--Hair button-->
             <li class="image-editor-element-btn-container">
               <div class="image-editor-element-btn" ng-class="{ selected: selectedElement == 1 }" ng-click="selectElement(1)">
-                <%= image_tag "resources/haircut_sample.jpg", class: "img-rounded img-responsive" %>
+                <%= image_tag 'resources/haircut_sample.jpg', class: 'img-rounded img-responsive' %>
               </div>
             </li>
             <!--Ornaments button-->
             <li>
               <div class="image-editor-element-btn" ng-class="{ selected: selectedElement == 2 }" ng-click="selectElement(2)">
-                <%= image_tag "resources/ornament_sample.jpg", class: "img-rounded img-responsive" %>
+                <%= image_tag 'resources/ornament_sample.jpg', class: 'img-rounded img-responsive' %>
               </div>
             </li>
           </ul>
         </div>
 
         <!--Options container-->
-        <div class="col-md-8">
+        <div class="col-md-10">
           <ul class="list-unstyled list-inline image-editor-options-container text-center" ng-class="{ hidden: selectedElement != 0 }">
             <li class="image-editor-element-btn" ng-repeat="background in elements.backgrounds" ng-class="{ selected: myCalaverita.background.backgroundID == background.id }">
               <img ng-src="{{ 'assets/resources/mini/backgrounds/' + background.src }}" class="img-rounded img-responsive" ng-click="selectBackground(background.id)">
@@ -59,13 +59,13 @@
           </ul>
 
           <ul class="list-unstyled list-inline image-editor-options-container text-center" ng-class="{ hidden: selectedElement != 1 }">
-            <li class="image-editor-element-btn" ng-repeat="haircut in elements.haircuts" ng-class="{ selected: myCalaverita.haircut.hairID == haircut.id }">
+            <li class="image-editor-element-btn" ng-repeat="haircut in elements.haircuts" ng-class="{ selected: myCalaverita.haircut.hairID == haircut.id, focused: focusedElement == 999 }">
               <img ng-src="{{ 'assets/resources/mini/haircuts/' + haircut.src }}" class="img-rounded img-responsive" ng-click="selectHaircut(haircut.id)">
             </li>
           </ul>
 
           <ul class="list-unstyled list-inline image-editor-options-container text-center" ng-class="{ hidden: selectedElement != 2 }">
-            <li class="image-editor-element-btn" ng-repeat="ornament in elements.ornaments" ng-class="{ selected: selectedOrnament(ornament.id) }">
+            <li class="image-editor-element-btn" ng-repeat="ornament in elements.ornaments" ng-class="{ selected: selectedOrnament(ornament.id), focused: focusedElement == ornament.id }">
               <img ng-src="{{ 'assets/resources/mini/ornaments/' + ornament.src }}" class="img-rounded img-responsive" ng-click="selectOrnament(ornament.id)">
             </li>
           </ul>

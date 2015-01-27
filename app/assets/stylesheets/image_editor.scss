@@ -9,6 +9,12 @@
   min-width: 70px;
 }
 
+.image-editor-color-selected {
+  width: 14px;
+  height: 20px;
+  border: 1px solid black;
+}
+
 .image-editor-element-btn-container { margin-bottom: 5px; }
 
 .image-editor-element-btn {
@@ -16,7 +22,13 @@
   opacity: 0.5;
 
   &:hover { opacity: 0.7; }
-  &.selected { opacity: 1; }
+  &.selected {
+    opacity: 1;
+
+    &.focused img {
+      border: 1px solid black
+    }
+  }
 }
 
 @media all and (min-width: 992px){
@@ -30,21 +42,11 @@
     max-height: 400px;
     overflow-y: auto;
   }
-
-  .image-editor-color-buttons {
-    margin: 0 auto;
-    max-width: 42px;
-  }
 }
 
 @media all and (max-width: 991px){
   .image-editor-canvas-container {
     margin: 0 auto;
     max-width: 380px;
-  }
-
-  .image-editor-color-buttons {
-    margin: 0 auto;
-    max-width: 336px;
   }
 }
