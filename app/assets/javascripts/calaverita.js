@@ -171,7 +171,15 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   };
 
   //Facebook button
+
   //Save button
+  $scope.saveCanvas = function() {
+    var dataURL = $scope.stage.toDataURL( "image/png" );
+    var buttonSave = $('.image-editor-save-canvas')
+    buttonSave.attr('href', dataURL);
+    buttonSave.get('0').click();
+
+  };
 
   //CONFIGURE CANVAS
 

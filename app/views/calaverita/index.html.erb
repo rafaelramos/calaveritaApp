@@ -1,6 +1,6 @@
-<div class="container-fluid" ng-app="calaverita">
+<div class="container-fluid" ng-app="calaverita" ng-controller="ElementsCtrl as editor" ng-init="initCanvas()">
   <!--Calaverita container-->
-  <div class="row image-editor-container" ng-controller="ElementsCtrl as editor" ng-init="initCanvas()">
+  <div class="row image-editor-container">
     <!--Hide on edit-->
     <div class="col-md-3 image-editor-offset" ng-class="{ hidden: editable }"></div>
 
@@ -84,7 +84,8 @@
 
     <!--URL share-->
     <div class="col-md-6">
-      <a class="btn btn-default btn-block" href="#">Save image</a>
+      <a class="btn btn-default btn-block" ng-click="saveCanvas()">Save image</a>
+      <a href="#" class="hidden image-editor-save-canvas" download="my-calaverita.png">Save image</a>
     </div>
   </div>
 </div>
