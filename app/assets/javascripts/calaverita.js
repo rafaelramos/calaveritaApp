@@ -97,7 +97,6 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   $scope.editable = false;
   $scope.selectedElement = 0;
   $scope.focusedElement = -1;
-  $scope.showColor = false;
   $scope.myCalaverita = {
     background: { backgroundID: 1 },
     haircut: { hairID: 1, color: { h: 180, s: 100, l: 0, r: 128, g: 128, b: 128 } },
@@ -112,6 +111,8 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   //Click element button
   $scope.selectElement = function(numElement) {
     $scope.selectedElement = numElement;
+
+    $scope.focusedElement = -1;
   };
 
   //Click item button
@@ -136,13 +137,24 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
         {
           id: id,
           color: {
-            h: 180, s: 100, l: 0, r: 128, g: 128, b: 128
+            h: 0, s: 0, l: 0, r: 128, g: 128, b: 128
           }
         });
     }
 
     //Set the focus to that element
     $scope.focusedElement = id;
+
+    //Update canvas
+    $scope.updateCanvas();
+  };
+
+  $scope.removeOrnament = function(id) {
+    for (var i = 0; i < $scope.myCalaverita.ornaments.length; i++) {
+      if ($scope.myCalaverita.ornaments[i].id == id) {
+        $scope.myCalaverita.ornaments.splice(i, 1);
+      }
+    }
 
     //Update canvas
     $scope.updateCanvas();
@@ -177,9 +189,34 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
       color: { h:180, s:50, b:50 },
       onChange: function(hsb,hex,rgb,el,bySetColor) {
         setBackgroundColor(hex);
+        //Change color on focused element
+        var color = { h: hsb.h, s: hsb.s, l: hsb.b, r: rgb.r, g: rgb.g, b: rgb.b };
+        if ($scope.focusedElement > 0) {
+          if ($scope.focusedElement == 999) {
+            $scope.myCalaverita.haircut.color = color;
+          } else {
+            //colorObj = getOrnamentFromArray($scope.focusedElement);
+          }
+        }
+
+        //Update canvas
+        $scope.updateCanvas();
       },
       onShow: function() {
         //Set te color selected in the item selected
+        //Get the actual color
+        //var color = { h:180, s:50, b:50},
+        //    colorObj = {};
+        //if ($scope.focusedElement > 0) {
+        //  if ($scope.focusedElement == 999) {
+        //    colorObj = $scope.myCalaverita.haircut.color;
+        //  } else {
+        //    colorObj = getOrnamentFromArray($scope.focusedElement);
+        //  }
+        //  color = { h: colorObj.h, s: colorObj.s, b: colorObj.l }
+        //}
+        //
+        //debugger;
         //$(this).colPickSetColor();
       }
     });
@@ -234,13 +271,21 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
 
     for (var i = 0; i < $scope.myCalaverita.ornaments.length; i++) {
       var obj = searchInObject($scope.myCalaverita.ornaments[i].id, $scope.elements.ornaments);
-      getImage(objects, 'assets/resources/normal/ornaments/' + obj.src);
+      getImageWithColor(objects, 'assets/resources/normal/ornaments/' + obj.src, $scope.myCalaverita.ornaments[i].color);
     }
 
     $scope.stage.getChildAt(3).addChild(objects);
   }
 
   //HELPERS
+
+  function getOrnamentFromArray(id) {
+    for (var i = 0; i < $scope.myCalaverita.ornaments.length; i++) {
+      if ($scope.myCalaverita.ornaments[i].id == id) {
+        return $scope.myCalaverita.ornaments[i];
+      }
+    }
+  };
 
   //Get the object images
   function searchInObject(id, myObject) {
@@ -269,14 +314,10 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
 
   //Get image with color
   function getImageWithColor(container, src, colorObject) {
-    var tint = new createjs.ColorFilter(1, 1, 1, 1, colorObject.r, colorObject.g, colorObject.b, 0);
+    var tint = new createjs.ColorFilter(0, 0, 0, 1, colorObject.r, colorObject.g, colorObject.b, 0);
     var img = new createjs.Bitmap(src);
-    var matrix = new createjs.ColorMatrix();
 
-    matrix.adjustHue(colorObject.h).adjustSaturation(colorObject.s).adjustBrightness(colorObject.l);
-
-    img.filters = [ tint, new createjs.ColorMatrixFilter(matrix) ];
-
+    img.filters = [ tint ];
 
     img.image.onload = function() {
       img.cache(0, 0, 350, 400);

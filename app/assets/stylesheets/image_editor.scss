@@ -1,8 +1,8 @@
 .image-editor-container { }
 
 .image-editor-canvas-container {
-  min-width: 350px;
   min-height: 400px;
+  min-width: 350px;
 }
 
 .image-editor-edit-btn-container {
@@ -10,23 +10,44 @@
 }
 
 .image-editor-color-selected {
-  width: 14px;
-  height: 20px;
   border: 1px solid black;
+  height: 20px;
+  width: 14px;
 }
 
 .image-editor-element-btn-container { margin-bottom: 5px; }
 
+.image-editor-element-btn-remove {
+  display: none;
+}
+
 .image-editor-element-btn {
   cursor: pointer;
   opacity: 0.5;
+  position: relative;
+
+  img { border: 3px solid white; }
 
   &:hover { opacity: 0.7; }
   &.selected {
     opacity: 1;
 
-    &.focused img {
-      border: 1px solid black
+    &.focused img { border: 3px solid black; }
+
+    .image-editor-element-btn-remove {
+      background-color: red;
+      border: 2px solid white;
+      border-radius: 50%;
+      color: white;
+      display: block;
+      font-weight: bold;
+      height: 30px;
+      line-height: 26px;
+      position: absolute;
+      right: 9px;
+      top: 4px;
+      text-align: center;
+      width: 30px;
     }
   }
 }

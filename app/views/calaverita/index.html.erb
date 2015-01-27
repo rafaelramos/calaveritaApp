@@ -14,7 +14,7 @@
       <button class="btn btn-default" ng-click="toggleEdit()">
         <span class="glyphicon glyphicon-pencil"></span>
       </button>
-      <button class="btn btn-default image-editor-color-btn" ng-class="{ hidden: showColor }">
+      <button class="btn btn-default image-editor-color-btn" ng-class="{ hidden: focusedElement < 0 }">
         <div class="image-editor-color-selected" style="background-color: hsl(180, 50% , 50%)"></div>
       </button>
     </div>
@@ -66,6 +66,7 @@
 
           <ul class="list-unstyled list-inline image-editor-options-container text-center" ng-class="{ hidden: selectedElement != 2 }">
             <li class="image-editor-element-btn" ng-repeat="ornament in elements.ornaments" ng-class="{ selected: selectedOrnament(ornament.id), focused: focusedElement == ornament.id }">
+              <div class="image-editor-element-btn-remove" ng-click="removeOrnament(ornament.id)">X</div>
               <img ng-src="{{ 'assets/resources/mini/ornaments/' + ornament.src }}" class="img-rounded img-responsive" ng-click="selectOrnament(ornament.id)">
             </li>
           </ul>
