@@ -124,6 +124,7 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   //Click item button
   $scope.selectBackground = function(id) {
     $scope.myCalaverita.background.backgroundID = id;
+    $scope.focusedElement = 1000; // 999 is Background
 
     //Update canvas
     $scope.updateCanvas();
@@ -208,6 +209,8 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
         if ($scope.focusedElement > 0) {
           if ($scope.focusedElement == 999) {
             $scope.myCalaverita.haircut.color = color;
+          } else if ($scope.focusedElement == 1000) {
+            $scope.myCalaverita.background.color = color;
           } else {
             updateOrnamentColor($scope.focusedElement, color);
           }
