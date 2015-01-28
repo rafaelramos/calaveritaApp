@@ -106,6 +106,7 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   //Click edit button
   $scope.toggleEdit = function() {
     $scope.editable = !this.editable;
+    $scope.focusedElement = -1;
   };
 
   //Click element button
