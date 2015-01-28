@@ -103,8 +103,8 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   $scope.selectedElement = 0;
   $scope.focusedElement = -1;
   $scope.myCalaverita = {
-    background: { backgroundID: 1, color: { h: 180, s: 100, l: 0, r: 128, g: 128, b: 128 } },
-    haircut: { hairID: 1, color: { h: 180, s: 100, l: 0, r: 128, g: 128, b: 128 } },
+    background: { backgroundID: 1, color: { r: 128, g: 128, b: 128 } },
+    haircut: { hairID: 1, color: { r: 51, g: 51, b: 51 } },
     ornaments: []
   };
 
@@ -144,7 +144,7 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
         {
           id: id,
           color: {
-            h: 0, s: 0, l: 0, r: 128, g: 128, b: 128
+            r: 51, g: 51, b: 51
           }
         });
     }
@@ -201,11 +201,11 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
 
     $('.image-editor-color-btn').colpick({
       submit: 0,
-      color: { h:180, s:50, b:50 },
+      color: { r:50, g:50, b:50 },
       onChange: function(hsb,hex,rgb,el,bySetColor) {
         setBackgroundColor(hex);
         //Change color on focused element
-        var color = { h: hsb.h, s: hsb.s, l: hsb.b, r: rgb.r, g: rgb.g, b: rgb.b };
+        var color = { r: rgb.r, g: rgb.g, b: rgb.b };
         if ($scope.focusedElement > 0) {
           if ($scope.focusedElement == 999) {
             $scope.myCalaverita.haircut.color = color;
