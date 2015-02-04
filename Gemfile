@@ -24,4 +24,10 @@ group :test do
   gem 'selenium-webdriver'
 end
 
+group :production do
+  gem 'rails_12factor'
+end
+
 gem 'jquery-rails'
+
+ruby '2.2.0'
