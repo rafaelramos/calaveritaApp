@@ -5,23 +5,19 @@
       <driver-ref>postgresql</driver-ref>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql:calaveritaApp_development</jdbc-url>
-      <user-name>calaveritaApp</user-name>
       <libraries />
     </data-source>
     <data-source source="LOCAL" name="Rails calaveritaApp: test" uuid="bd94b7e8-19e1-438f-b2e1-be75f8d379ea">
       <driver-ref>postgresql</driver-ref>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql:calaveritaApp_test</jdbc-url>
-      <user-name>calaveritaApp</user-name>
       <libraries />
     </data-source>
     <data-source source="LOCAL" name="Rails calaveritaApp: production" uuid="48be99b6-39e7-4f4b-828c-e318ed4fb791">
       <driver-ref>postgresql</driver-ref>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql:calaveritaApp_production</jdbc-url>
-      <user-name>calaveritaApp</user-name>
       <libraries />
     </data-source>
   </component>
 </project>
-
