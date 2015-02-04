@@ -9,8 +9,8 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require /image_editor
- *= require /calaverita-header
+ *= require image_editor
+ *= require calaverita-header
  *= require colpick
  *= require_tree .
  */
