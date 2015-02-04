@@ -29,5 +29,6 @@ group :production do
 end
 
 gem 'jquery-rails'
+gem 'puma'
 
 ruby '2.2.0'
