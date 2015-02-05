@@ -99,19 +99,12 @@ calaverita.factory('Elements', function() {
 
 calaverita.controller('ElementsCtrl', function($scope, Elements) {
   $scope.elements = Elements;
-  $scope.editable = false;
   $scope.selectedElement = 0;
   $scope.focusedElement = -1;
   $scope.myCalaverita = {
     background: { backgroundID: 1, color: { r: 128, g: 128, b: 128 } },
     haircut: { hairID: 1, color: { r: 51, g: 51, b: 51 } },
     ornaments: []
-  };
-
-  //Click edit button
-  $scope.toggleEdit = function() {
-    $scope.editable = !this.editable;
-    $scope.focusedElement = -1;
   };
 
   //Click element button

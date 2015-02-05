@@ -1,12 +1,37 @@
-.image-editor-container { }
+@import "globals";
 
-.image-editor-canvas-container {
-  min-height: 400px;
-  min-width: 350px;
+.calaverita-content { margin: 10px auto; }
+
+.image-editor-content {
+  max-width: 960px;
+  * {
+    box-sizing: initial;
+  }
 }
 
-.image-editor-edit-btn-container {
-  min-width: 70px;
+.image-editor-container {
+  background-color: $black-2;
+  margin-bottom: 10px;
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+.image-editor-section {
+  float: left;
+  height: 400px;
+  border: 5px solid $black;
+  border-right: none;
+}
+
+.image-editor-canvas-container { width: 350px; }
+
+.image-editor-layers-container { width: 140px; }
+
+.image-editor-objects-container { *width: 280px; }
+
+.image-editor-color-btn-container {
+  border-right: 5px solid $black;
+  width: 70px;
 }
 
 .image-editor-color-selected {
