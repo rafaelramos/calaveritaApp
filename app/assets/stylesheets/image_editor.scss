@@ -90,17 +90,17 @@ body {
     &.focused img { border: 3px solid black; }
 
     .image-editor-element-btn-remove {
-      background-color: red;
+      background-color: $purple-3;
       border: 2px solid white;
       border-radius: 50%;
       color: white;
       display: block;
       font-weight: bold;
       height: 30px;
-      line-height: 26px;
+      line-height: 30px;
       position: absolute;
-      right: 9px;
-      top: 4px;
+      right: 10px;
+      top: 10px;
       text-align: center;
       width: 30px;
     }
@@ -127,7 +127,7 @@ body {
   }
 
   .image-editor-options-container {
-    margin-bottom: 0px;
+    margin-bottom: 0;
     max-height: 400px;
     overflow-y: auto;
   }

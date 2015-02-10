@@ -7,14 +7,14 @@ calaverita.factory('Elements', function() {
 
   Elements.colors = [
     { id: 1, light: { r: 194, g: 194, b: 194 }, normal: { r: 128, g: 128, b: 128 }, dark: { r: 36, g: 36, b: 36 } }, //Black
-    { id: 2, light: { r: 255, g: 167, b: 122 }, normal: { r: 191, g: 99, b: 54 }, dark: { r: 130, g: 144, b: 1 } }, // Orange
+    { id: 2, light: { r: 255, g: 167, b: 122 }, normal: { r: 191, g: 99, b: 54 }, dark: { r: 145, g: 52, b: 6 } }, // Orange
     { id: 3, light: { r: 237, g: 121, b: 121 }, normal: { r: 173, g: 26, b: 26 }, dark: { r: 99, g: 12, b: 12 } }, //Red
     { id: 4, light: { r: 224, g: 114, b: 224 }, normal: { r: 171, g: 44, b: 171 }, dark: { r: 84, g: 8, b: 84 } }, //Purple
     { id: 5, light: { r: 120, g: 125, b: 235 }, normal: { r: 44, g: 51, b: 176 }, dark: { r: 14, g: 18, b: 87 } }, //Blue
     { id: 6, light: { r: 144, g: 225, b: 240 }, normal: { r: 51, g: 175, b: 196 }, dark: { r: 11, g: 73, b: 84 } }, //Ugly blue-green
     { id: 7, light: { r: 138, g: 222, b: 138 }, normal: { r: 69, g: 135, b: 69 }, dark: { r: 13, g: 79, b: 13 } }, //Green
     { id: 8, light: { r: 250, g: 250, b: 22 }, normal: { r: 153, g: 153, b: 18 }, dark: { r: 66, g: 66, b: 9 } }, //Yellow
-    { id: 9, light: { r: 240, g: 186, b: 115 }, normal: { r: 168, g: 114, b: 42 }, dark: { r: 69, g: 40, b: 2 }}, // Brown
+    { id: 9, light: { r: 240, g: 186, b: 115 }, normal: { r: 168, g: 114, b: 42 }, dark: { r: 69, g: 40, b: 2 }} // Brown
   ];
 
   Elements.backgrounds = [
@@ -115,50 +115,38 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   $scope.focusedElement = -1;
   $scope.myCalaverita = {
     background: { backgroundID: 1, color: { r: 128, g: 128, b: 128 } },
-    haircut: { hairID: 1, color: { r: 51, g: 51, b: 51 } },
+    haircut: { hairID: 1, color: { r: 36, g: 36, b: 36 } },
     ornaments: []
   };
 
-  //Click element button
+  //Click layer button
   $scope.selectElement = function(numElement) {
     $scope.selectedElement = numElement;
-
     $scope.focusedElement = -1;
   };
 
-  //Click item button
+  //Click object button
   $scope.selectBackground = function(id) {
     $scope.myCalaverita.background.backgroundID = id;
     $scope.focusedElement = 1000; // 999 is Background
 
-    //Update canvas
-    $scope.updateCanvas();
+    $scope.updateCanvas(); //Update canvas
   };
 
   $scope.selectHaircut = function(id) {
     $scope.myCalaverita.haircut.hairID = id;
     $scope.focusedElement = 999; // 999 is Hair because there is no 999 ornaments
 
-    //Update canvas
-    $scope.updateCanvas();
+    $scope.updateCanvas(); //Update canvas
   };
 
   $scope.selectOrnament = function(id) {
     if (!$scope.selectedOrnament(id)) {
-      $scope.myCalaverita.ornaments.push(
-        {
-          id: id,
-          color: {
-            r: 51, g: 51, b: 51
-          }
-        });
+      $scope.myCalaverita.ornaments.push({ id: id, color: { r: 36, g: 36, b: 36 } });
     }
 
-    //Set the focus to that element
-    $scope.focusedElement = id;
-
-    //Update canvas
-    $scope.updateCanvas();
+    $scope.focusedElement = id; //Set the focus to that element
+    $scope.updateCanvas(); //Update canvas
   };
 
   $scope.removeOrnament = function(id) {
@@ -168,8 +156,7 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
       }
     }
 
-    //Update canvas
-    $scope.updateCanvas();
+    $scope.updateCanvas(); //Update canvas
   };
 
   $scope.selectedOrnament = function(id) {
@@ -182,6 +169,19 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
     return false;
   };
 
+  //Click color button
+  $scope.selectColor = function(color) {
+    if ($scope.focusedElement == 999) {
+      $scope.myCalaverita.haircut.color = color;
+    } else if ($scope.focusedElement == 1000) {
+      $scope.myCalaverita.background.color = color;
+    } else if ($scope.focusedElement >= 0) {
+      updateOrnamentColor($scope.focusedElement, color);
+    }
+
+    $scope.updateCanvas(); //Update canvas
+  };
+
   //Facebook button
 
   //Save button
@@ -190,7 +190,6 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
     var buttonSave = $('.image-editor-save-canvas')
     buttonSave.attr('href', dataURL);
     buttonSave.get('0').click();
-
   };
 
   //CONFIGURE CANVAS
@@ -198,50 +197,30 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   //Init canvas
   $scope.initCanvas = function() {
     $scope.stage = new createjs.Stage("image-editor-canvas");
+
     //To ensure layers are created correctly and printed in order
     $scope.stage.addChildAt(new createjs.Container()); //Background
     $scope.stage.addChildAt(new createjs.Container()); //Skull
     $scope.stage.addChildAt(new createjs.Container()); //Hair
     $scope.stage.addChildAt(new createjs.Container()); //Ornaments
 
-    $('.image-editor-color-btn').colpick({
-      submit: 0,
-      color: { r:50, g:50, b:50 },
-      onChange: function(hsb,hex,rgb,el,bySetColor) {
-        setBackgroundColor(hex);
-        //Change color on focused element
-        var color = { r: rgb.r, g: rgb.g, b: rgb.b };
-        if ($scope.focusedElement > 0) {
-          if ($scope.focusedElement == 999) {
-            $scope.myCalaverita.haircut.color = color;
-          } else if ($scope.focusedElement == 1000) {
-            $scope.myCalaverita.background.color = color;
-          } else {
-            updateOrnamentColor($scope.focusedElement, color);
-          }
-        }
-
-        //Update canvas
-        $scope.updateCanvas();
-      }
-    });
-
-    $scope.updateCanvas();
+    $scope.updateCanvas(); //Update canvas
   };
 
   //Update canvas
   $scope.updateCanvas = function() {
-    $scope.stage.getChildAt(0).removeAllChildren();
-    $scope.stage.getChildAt(1).removeAllChildren();
-    $scope.stage.getChildAt(2).removeAllChildren();
-    $scope.stage.getChildAt(3).removeAllChildren();
+    //Remove all from the canvas to print from 0
+    $scope.stage.getChildAt(0).removeAllChildren(); //Background
+    $scope.stage.getChildAt(1).removeAllChildren(); //Skull
+    $scope.stage.getChildAt(2).removeAllChildren(); //Hair
+    $scope.stage.getChildAt(3).removeAllChildren(); //Ornaments
 
-    getBackground();
-    getSkull();
-    getHaircut();
-    getOrnaments();
+    getBackground(); //Add background
+    getSkull(); //Add skull
+    getHaircut(); //Add haircut
+    getOrnaments(); //Add ornaments
 
-    $scope.stage.update();
+    $scope.stage.update(); //Print everything
   };
 
   //Get the background image
@@ -290,15 +269,6 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   }
 
   //HELPERS
-  function updateOrnamentColor(id, color) {
-    for (var i = 0; i < $scope.myCalaverita.ornaments.length; i++) {
-      if ($scope.myCalaverita.ornaments[i].id == id) {
-        $scope.myCalaverita.ornaments[i].color = color;
-        return true;
-      }
-    }
-  };
-
   //Get the object images
   function searchInObject(id, myObject) {
     for(var i = 0; i < myObject.length; i++) {
@@ -308,8 +278,13 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
     }
   }
 
-  function setBackgroundColor(hex) {
-    $('.image-editor-color-selected').css('background-color', '#'+hex);
+  function updateOrnamentColor(id, color) {
+    for (var i = 0; i < $scope.myCalaverita.ornaments.length; i++) {
+      if ($scope.myCalaverita.ornaments[i].id == id) {
+        $scope.myCalaverita.ornaments[i].color = color;
+        return true;
+      }
+    }
   }
 
   //IMAGE LOADER

@@ -58,9 +58,9 @@
     <!--Color button container-->
     <div class="image-editor-color-btn-container image-editor-section">
       <div ng-repeat="color in elements.colors" class="clearfix image-editor-color-btn-row">
-        <div class="image-editor-color-btn" style="background-color: rgb({{color.light.r}}, {{color.light.g}} , {{color.light.b}})"></div>
-        <div class="image-editor-color-btn" style="background-color: rgb({{color.normal.r}}, {{color.normal.g}} , {{color.normal.b}})"></div>
-        <div class="image-editor-color-btn" style="background-color: rgb({{color.dark.r}}, {{color.dark.g}} , {{color.dark.b}})"></div>
+        <div class="image-editor-color-btn" style="background-color: rgb({{color.light.r}}, {{color.light.g}} , {{color.light.b}})" ng-click="selectColor(color.light)"></div>
+        <div class="image-editor-color-btn" style="background-color: rgb({{color.normal.r}}, {{color.normal.g}} , {{color.normal.b}})" ng-click="selectColor(color.normal)"></div>
+        <div class="image-editor-color-btn" style="background-color: rgb({{color.dark.r}}, {{color.dark.g}} , {{color.dark.b}})" ng-click="selectColor(color.dark)"></div>
       </div>
     </div>
   </div>
