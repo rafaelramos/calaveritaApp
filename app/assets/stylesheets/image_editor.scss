@@ -1,53 +1,85 @@
 @import "globals";
 
+body {
+  background-color: $brown-1;
+}
+
 .calaverita-content { margin: 10px auto; }
 
 .image-editor-content {
-  max-width: 960px;
-  * {
-    box-sizing: initial;
-  }
+  max-width: 951px;
 }
 
 .image-editor-container {
-  background-color: $black-2;
   margin-bottom: 10px;
   padding-bottom: 15px;
   padding-top: 15px;
+
+  * { box-sizing: initial; }
+  ul { padding: 0; }
 }
 
 .image-editor-section {
-  float: left;
-  height: 400px;
+  background-color: $blue-4;
   border: 5px solid $black;
   border-right: none;
+  float: left;
+  height: 400px;
 }
 
 .image-editor-canvas-container { width: 350px; }
 
-.image-editor-layers-container { width: 140px; }
+.image-editor-layers-container {
+  background-color: $blue-3;
+  width: 86px;
+}
 
-.image-editor-objects-container { *width: 280px; }
+.image-editor-objects-container {
+  background-color: $blue-0;
+  overflow: auto;
+  width: 360px;
+
+  li {
+    padding: 5px;
+  }
+}
 
 .image-editor-color-btn-container {
   border-right: 5px solid $black;
-  width: 70px;
+  background-color: $blue-2;
+  width: 100px;
 }
 
-.image-editor-color-selected {
-  border: 1px solid black;
+.image-editor-color-btn-row {
+  margin: 0 5px;
+
+  &:first-child {
+    margin-top: 5px;
+  }
+}
+
+.image-editor-color-btn {
+  cursor: pointer;
+  float: left;
   height: 20px;
-  width: 14px;
+  width: 30px;
 }
 
-.image-editor-element-btn-container { margin-bottom: 5px; }
+.image-editor-element-btn-container {
+  padding: 5px;
+}
 
 .image-editor-element-btn-remove {
   display: none;
 }
 
+.image-editor-element-triangle {
+  display: none;
+}
+
 .image-editor-element-btn {
   cursor: pointer;
+  display: inline-block;
   opacity: 0.5;
   position: relative;
 
@@ -73,6 +105,19 @@
       top: 4px;
       text-align: center;
       width: 30px;
+    }
+
+    .image-editor-element-triangle {
+      border-bottom: 20px solid transparent;
+      border-left: 20px solid $blue-3;
+      border-top: 20px solid transparent;
+      display: block;
+      height: 0;
+      position: absolute;
+      right: -25px;
+      top: 23px;
+      width: 0;
+      z-index: 1;
     }
   }
 }

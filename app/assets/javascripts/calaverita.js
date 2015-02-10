@@ -5,6 +5,18 @@ var calaverita = angular.module('calaverita', []);
 calaverita.factory('Elements', function() {
   var Elements = {};
 
+  Elements.colors = [
+    { id: 1, light: { r: 194, g: 194, b: 194 }, normal: { r: 128, g: 128, b: 128 }, dark: { r: 36, g: 36, b: 36 } }, //Black
+    { id: 2, light: { r: 255, g: 167, b: 122 }, normal: { r: 191, g: 99, b: 54 }, dark: { r: 130, g: 144, b: 1 } }, // Orange
+    { id: 3, light: { r: 237, g: 121, b: 121 }, normal: { r: 173, g: 26, b: 26 }, dark: { r: 99, g: 12, b: 12 } }, //Red
+    { id: 4, light: { r: 224, g: 114, b: 224 }, normal: { r: 171, g: 44, b: 171 }, dark: { r: 84, g: 8, b: 84 } }, //Purple
+    { id: 5, light: { r: 120, g: 125, b: 235 }, normal: { r: 44, g: 51, b: 176 }, dark: { r: 14, g: 18, b: 87 } }, //Blue
+    { id: 6, light: { r: 144, g: 225, b: 240 }, normal: { r: 51, g: 175, b: 196 }, dark: { r: 11, g: 73, b: 84 } }, //Ugly blue-green
+    { id: 7, light: { r: 138, g: 222, b: 138 }, normal: { r: 69, g: 135, b: 69 }, dark: { r: 13, g: 79, b: 13 } }, //Green
+    { id: 8, light: { r: 250, g: 250, b: 22 }, normal: { r: 153, g: 153, b: 18 }, dark: { r: 66, g: 66, b: 9 } }, //Yellow
+    { id: 9, light: { r: 240, g: 186, b: 115 }, normal: { r: 168, g: 114, b: 42 }, dark: { r: 69, g: 40, b: 2 }}, // Brown
+  ];
+
   Elements.backgrounds = [
     { id: 1, src: 'background_1.jpg', color: false },
     { id: 2, src: 'background_2.jpg', color: true },
