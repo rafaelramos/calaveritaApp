@@ -112,7 +112,7 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   $scope.selectedElement = 0;
   $scope.focusedElement = -1;
   $scope.myCalaverita = {
-    background: { backgroundID: 1, color: { r: 36, g: 36, b: 36 } },
+    background: { backgroundID: 1, color: { r: 13, g: 79, b: 13 } },
     haircut: { hairID: 1, color: { r: 36, g: 36, b: 36 } },
     ornaments: []
   };

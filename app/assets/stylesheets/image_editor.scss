@@ -103,13 +103,19 @@ body {
   opacity: 0.5;
   position: relative;
 
-  img { border: 3px solid white; }
+  img {
+    background-color: $blue-2;
+    border: 3px solid white;
+  }
 
   &:hover { opacity: 0.7; }
   &.selected {
     opacity: 1;
 
-    &.focused img { border: 3px solid black; }
+    &.focused img {
+      background-color: $blue-1;
+      border: 3px solid black;
+    }
 
     .image-editor-element-btn-remove {
       background-color: $purple-3;
