@@ -18,11 +18,9 @@ calaverita.factory('Elements', function() {
   ];
 
   Elements.backgrounds = [
-    { id: 1, src: 'background_1.jpg', color: false },
-    { id: 2, src: 'background_2.jpg', color: true },
-    { id: 3, src: 'background_3.jpg', color: false },
-    { id: 4, src: 'background_4.jpg', color: true },
-    { id: 5, src: 'background_5.jpg', color: false }
+    { id: 1, src: 'background0001.png', color: true },
+    { id: 2, src: 'background0002.png', color: false },
+    { id: 3, src: 'background0003.png', color: false }
   ];
 
   Elements.haircuts = [
@@ -114,7 +112,7 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
   $scope.selectedElement = 0;
   $scope.focusedElement = -1;
   $scope.myCalaverita = {
-    background: { backgroundID: 1, color: { r: 128, g: 128, b: 128 } },
+    background: { backgroundID: 1, color: { r: 36, g: 36, b: 36 } },
     haircut: { hairID: 1, color: { r: 36, g: 36, b: 36 } },
     ornaments: []
   };
@@ -181,6 +179,18 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
 
     $scope.updateCanvas(); //Update canvas
   };
+
+  $scope.canApplyColor = function() {
+    if ($scope.focusedElement < 0) {
+      return false;
+    } else if ($scope.focusedElement == 999) {
+      return $scope.myCalaverita.haircut.hairID != 1;
+    } else if ($scope.focusedElement == 1000) {
+      return searchInObject($scope.myCalaverita.background.backgroundID, $scope.elements.backgrounds).color;
+    } else {
+      return searchInObject($scope.focusedElement, $scope.elements.ornaments).color;
+    }
+  }
 
   //Facebook button
 
@@ -301,7 +311,7 @@ calaverita.controller('ElementsCtrl', function($scope, Elements) {
 
   //Get image with color
   function getImageWithColor(container, src, colorObject) {
-    var tint = new createjs.ColorFilter(1, 1, 1, 1, colorObject.r, colorObject.g, colorObject.b, 1);
+    var tint = new createjs.ColorFilter(0.4, 0.4, 0.4, 1, colorObject.r, colorObject.g, colorObject.b, 1);
     var img = new createjs.Bitmap(src);
 
     img.filters = [ tint ];

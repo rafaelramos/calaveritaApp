@@ -12,7 +12,7 @@
         <!--Background button-->
         <li class="image-editor-element-btn-container">
           <div class="image-editor-element-btn" ng-class="{ selected: selectedElement == 0 }" ng-click="selectElement(0)">
-            <%= image_tag 'resources/background_sample.jpg', class: 'img-rounded' %>
+            <%= image_tag 'resources/background_sample.png', class: 'img-rounded' %>
             <div class="image-editor-element-triangle"></div>
           </div>
         </li>
@@ -61,6 +61,12 @@
         <div class="image-editor-color-btn" style="background-color: rgb({{color.light.r}}, {{color.light.g}} , {{color.light.b}})" ng-click="selectColor(color.light)"></div>
         <div class="image-editor-color-btn" style="background-color: rgb({{color.normal.r}}, {{color.normal.g}} , {{color.normal.b}})" ng-click="selectColor(color.normal)"></div>
         <div class="image-editor-color-btn" style="background-color: rgb({{color.dark.r}}, {{color.dark.g}} , {{color.dark.b}})" ng-click="selectColor(color.dark)"></div>
+      </div>
+      <div class="image-editor-color-lock" ng-class="{ hidden: canApplyColor() }">
+        <div class="image-editor-color-lock-content">
+          <span class="glyphicon glyphicon-lock"></span><br>
+          <span> Select an element to apply color</span>
+        </div>
       </div>
     </div>
   </div>
