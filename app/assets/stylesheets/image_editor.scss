@@ -7,12 +7,10 @@ body {
 
 .calaverita-content { margin: 10px auto; }
 
-.image-editor-content {
-  max-width: 951px;
-}
+.image-editor-content { max-width: 951px; }
 
 .image-editor-container {
-  margin-bottom: 10px;
+  margin: 20px 0;
   padding-bottom: 15px;
   padding-top: 15px;
 
@@ -73,9 +71,7 @@ body {
 .image-editor-color-btn-row {
   margin: 0 5px;
 
-  &:first-child {
-    margin-top: 5px;
-  }
+  &:first-child { margin-top: 5px; }
 }
 
 .image-editor-color-btn {
@@ -85,17 +81,9 @@ body {
   width: 30px;
 }
 
-.image-editor-element-btn-container {
-  padding: 5px;
-}
+.image-editor-element-btn-container { padding: 5px; }
 
-.image-editor-element-btn-remove {
-  display: none;
-}
-
-.image-editor-element-triangle {
-  display: none;
-}
+.image-editor-element-btn-remove, .image-editor-element-triangle { display: none; }
 
 .image-editor-element-btn {
   cursor: pointer;
@@ -146,6 +134,10 @@ body {
       z-index: 1;
     }
   }
+}
+
+.image-editor-share-container {
+  margin: 20px 0;
 }
 
 @media all and (min-width: 992px){

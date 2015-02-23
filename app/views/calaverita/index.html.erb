@@ -1,4 +1,31 @@
 <div class="image-editor-content container-fluid" ng-app="calaverita" ng-controller="ElementsCtrl as editor" ng-init="initCanvas()">
+
+  <!--Info box container-->
+  <div class="info-box-container row">
+    <div class="col-md-6">
+      <div class="media info-box-content">
+        <div class="media-left">
+          <%= image_tag 'resources/background_sample.png', class: 'img-rounded' %>
+        </div>
+        <div class="media-body">
+          <h4>Create your own Calaverita</h4>
+          <div>Personalize your Calaverita selecting between backgrounds, hairstyles and objects.</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="media info-box-content">
+        <div class="media-left">
+          <%= image_tag 'resources/haircut_sample.png', class: 'img-rounded' %>
+        </div>
+        <div class="media-body">
+          <h4>Share your Calaverita</h4>
+          <div>Done with that? Share it with your friends and celebrate the "Día de Muertos"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!--Calaverita container-->
   <div class="image-editor-container clearfix">
     <!--Canvas container-->
@@ -72,7 +99,7 @@
   </div>
 
   <!--Share buttons container-->
-  <div class="row">
+  <div class="row image-editor-share-container">
     <!--Facebook share-->
     <div class="col-md-6">
       <a class="btn btn-primary btn-block" href="#">Post on facebook</a>

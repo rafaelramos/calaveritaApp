@@ -1,0 +1,10 @@
+@import "globals";
+
+.info-box-container { margin: 20px 0; }
+
+.info-box-content {
+  background-color: $blue-1;
+  border: 1px $blue-2 solid;
+  border-radius: 10px;
+  padding: 20px;
+}
